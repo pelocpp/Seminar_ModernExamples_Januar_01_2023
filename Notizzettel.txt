@@ -28,7 +28,6 @@ Typermittlung im Detail
 
 STL:  Getting Started
 
-
 Lambdas (C++11)
   = Grundlagen => wichtig
   = Je nach Zeit: Generische Lambdas
@@ -37,6 +36,7 @@ Lambdas (C++11)
 Standard Template Library
   = Iteratorkonzept => wichtig
   = Container (z.T. C++11) => wichtig
+
 
 Algorithmen:
   = std::for_each, std::generate, std::transform, std::back_inserter
@@ -64,6 +64,7 @@ Erweiterungen
   = Standard-Bibliothek (Überblick):
        Container-Klassen, Iteratoren, Algorithmen, Funktoren => wichtig
   = Smart Pointer (Unique, Shared, Weak Pointer) => wichtig
+
 
 Übungen:
 ~~~~~~~~
@@ -238,3 +239,4 @@ Aufgaben zu Lambda Funktionen:
 Aufgaben zu STL-Algorithmen:
    Aufgabe 2: Fibonacci-Zahlen
 
+// ==================================================
