@@ -1,0 +1,77 @@
+// =====================================================================
+// Notizzettel.txt
+// =====================================================================
+
+Modernes C++ / Firmenseminar ISO Gmbh Nürnberg
+
+Peter Loos // "Du"
+
+peter.loos@gmx.de
+
+// =====================================================================
+
+Agenda
+======
+
+Mittwoch:
+---------
+
+Templates (generische Programmierung)
+  = Funktionstemplates => wichtig
+  = Klassentemplates => wichtig
+  = Spezialisierung => wichtig
+
+Typermittlung im Detail
+  = auto (C++11) => wichtig
+  = Automatischer Rückgabetyp (C++14) => wichtig
+
+Lambdas (C++11)
+  = Grundlagen => wichtig
+  = Je nach Zeit: Generische Lambdas
+
+Standard Template Library
+  = Iteratorkonzept => wichtig
+  = Container (z.T. C++11) => wichtig
+
+Algorithmen:
+  = std::for_each, std::generate, std::transform, std::back_inserter
+
+
+Übungen:
+~~~~~~~~
+
+  = Klassentemplate (Calculator)
+  = Lambda Funktionen, Aufgabe 1 (Even)
+  = STL-Algorithmen, Aufgabe 2 (Fibonacci-Zahlen)
+
+
+Donnerstag:
+-----------
+
+Metaprogramming, Type Traits: Je nach Zeit
+
+
+Neue Techniken bei C++
+  = Range-basierte for-Schleife (C++11) => wichtig
+  = RValues und Move-Semantik (C++11) => wichtig
+
+Erweiterungen
+  = Standard-Bibliothek (Überblick):
+       Container-Klassen, Iteratoren, Algorithmen, Funktoren => wichtig
+  = Smart Pointer (Unique, Shared, Weak Pointer) => wichtig
+
+Übungen:
+~~~~~~~~
+  = Smart Pointer
+  = Move-Semantik
+  = Generische Lambdas: Personensuche
+
+Kurz:
+  = Variadische Templates (C++11) => eventuell
+  = Template-Argumente => kurz
+  = Neue Utility-Klassen (C++ 17, std::optional, std::variant, std::any, std::string_view)
+    => unwichtig, es sei denn, es ist Zeit
+
+// =====================================================================
+// End-of-File
+// =====================================================================
