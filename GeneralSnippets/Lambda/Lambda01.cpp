@@ -10,8 +10,11 @@
 
 namespace Lambdas {
 
+    bool aufwaerts = true;
+
     bool compare (int n1, int n2) {
-        return n1 < n2;
+        std::cout << "vergleiche " << n1 << " mit " << n2 << std::endl;
+        return n1 > n2;
     }
 
     class Comparer
@@ -24,6 +27,7 @@ namespace Lambdas {
         Comparer(bool flag) : m_flag{ flag } {}
 
         bool operator() (int n1, int n2) const {
+            std::cout << "Funktor: " << n1 << " mit " << n2 << std::endl;
             return (m_flag) ? n1 < n2 : n1 > n2;
         }
     };
@@ -48,24 +52,51 @@ namespace Lambdas {
             LocalComparer(bool flag) : m_flag{ flag } {}
 
             bool operator() (int n1, int n2) const {
+                std::cout << "LocalComparer: " << n1 << " mit " << n2 << std::endl;
                 return (m_flag) ? n1 < n2 : n1 > n2;
             }
         };
 
         std::vector<int> vec { 5, 9, 1, 3, 7, 8 };
 
-        for (int n : vec) {
+        for (int n : vec) {   // for_each:  range based for loop
             std::cout << n << ' ';
         }
         std::cout << std::endl;
 
-        std::sort(std::begin(vec), std::end(vec), compare);
+        std::sort(
+            std::begin(vec),
+            std::end(vec),
+            compare
+        );
+
         // or
-        std::sort(std::begin(vec), std::end(vec), Comparer{});
+        std::sort(
+            std::begin(vec),
+            std::end(vec),
+            Comparer(true)
+        );
+        
+        
         // or
         std::sort(std::begin(vec), std::end(vec), Comparer{false});
+        
         // or
-        std::sort(std::begin(vec), std::end(vec), LocalComparer{});
+        std::sort(
+            std::begin(vec), 
+            std::end(vec), 
+            LocalComparer{}
+        );
+
+        // or
+        std::sort(
+            std::begin(vec),
+            std::end(vec),
+            [] (int n1, int n2) {
+                std::cout << "Lambda: " << n1 << " mit " << n2 << std::endl;
+                return n1 < n2;
+            }
+        );
 
         for (int n : vec) {
             std::cout << n << ' ';
@@ -128,12 +159,29 @@ namespace Lambdas {
         // in the lambda-capture without specifying its type:
 
         // lambda with variable definition
-        auto lambda = [variable = 10]() { return variable; };
+        // Type Deduction
+        auto lambda = [variable = 10] () mutable {
+            
+            variable ++;
+            return variable; 
+        };
+
         std::cout << lambda() << std::endl;
+        std::cout << lambda() << std::endl;
+        std::cout << lambda() << std::endl;
+
+        return;
+
+
+
+
+
+
+
 
         // Captures default to 'const value':
         // The mutable keyword removes the 'const' qualification from all captured variables
-        auto counter = [count = 50]() mutable { 
+        auto counter = [count = 50]() mutable -> int { 
             ++count; 
             return count;
         };
@@ -146,10 +194,11 @@ namespace Lambdas {
 
     void test_06() {
 
+        // n, m: Jargon: JavaScript: Closure
         int n = 1;
         int m = 2;
 
-        auto l1 = [=] () {
+        auto l1 = [=]  {
             std::cout << "Copy:      " << n << " " << m << std::endl;
         };
 
@@ -186,8 +235,11 @@ namespace Lambdas {
         return lambda;
     }
 
+
+
     auto test_07_helper_b() {
 
+        // 
         int n = 1;
         int m = 2;
 
@@ -233,19 +285,19 @@ namespace Lambdas {
     }
 }
 
-void main_lambdas()
+void main_lambdas() 
 {
     using namespace Lambdas;
-    test_00();
-    test_01();
-    test_02();
-    test_03();
-    test_04();
-    test_05();
-    test_06();
+    //test_00();
+    //test_01();
+    //test_02();
+    //test_03();
+    //test_04();
+    //test_05();
+    //test_06();
     test_07();
-    test_08();
-    test_09();
+    //test_08();
+    //test_09();
 }
 
 // =====================================================================================

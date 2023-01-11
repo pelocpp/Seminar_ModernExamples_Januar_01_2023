@@ -107,8 +107,8 @@ int main()
 {
     std::cout << "[Collection of Modern C++-Code Snippets - Copyright (C) 2019-2023 Peter Loos]" << std::endl;
 
-    test_seminar();
-    return 1;
+    //test_seminar();
+    //return 1;
 
     try
     {
@@ -138,7 +138,7 @@ int main()
         //main_exercises();
         //main_expression_templates();
         //main_generate();
-        //main_generic_lambdas();
+        main_generic_lambdas();
         //main_keyword_explicit();
         //main_filesystem();
         //main_functional_programming();

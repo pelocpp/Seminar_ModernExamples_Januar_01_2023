@@ -107,7 +107,8 @@ namespace ClassTemplatesBasics_03 {
             D m_denom;
         };
 
-        // Partial Template Specialization: a) Reduktion auf einen Parameter
+        // Partial Template Specialization: 
+        // a) Reduktion auf einen Parameter
         template <typename D>
         class Ratio<double, D> {
         public:

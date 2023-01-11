@@ -18,8 +18,12 @@ namespace TemplateSpecialization {
             static void sort(std::vector<T>&) { /* ... */ }
         };
 
+        // T = char :  besser, anders, performanter sortieren
+
+
+
         template<>
-        class GenericSorter<char>
+        class GenericSorter<char>   // T = char  FOLGE
         {
         public:
             static void sort(std::vector<char>&) { /* ... */ }
@@ -37,12 +41,27 @@ namespace TemplateSpecialization {
     // Partial Template Specialization
     namespace ClassTemplates_PartialTemplateSpecialization {
 
+        // Primäres Template
         template<typename T>
         class GenericSorter
         {
         public:
             static void sort(std::vector<T>&) { /* ... */ }
         };
+
+
+        // T  passt   // Pointer:  Werte von T sortieren
+        //            NICHT Pointer sortieren, T*
+
+        // Partielle Spezialisierung:
+        // A) Schablone: Für ALLE Typen T
+        // b) Für alle Typen T:  Davon abgeleite Menge von Pointertypen
+        // c) Partielle Spezialisierung: Für alle Typen, die ein Pointer sind
+
+        // Weitere Beispiele: 
+        // Ja: Viele Beispiele: MetaProgrammierung
+        // T    T&      const T&    //  T&    ==>  T
+        // Type Traits: 
 
         template<typename T>
         class GenericSorter<T*>

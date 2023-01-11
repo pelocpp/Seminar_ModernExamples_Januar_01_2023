@@ -3,6 +3,8 @@
 // =====================================================================================
 
 #include <iostream>
+#include <vector>
+#include <algorithm>
 
 //class Calculator
 //{
@@ -27,7 +29,7 @@
 // Man instanziiert eine Klasse,um ein Objekt zu erhalten
 
 // Primäre Template
-template <typename T, typename U = float>
+template <typename T, typename U = T>
 class Calculator
 {
 public:
@@ -50,8 +52,7 @@ int Calculator<int>::div(int x, int y) {
     return  (int)((double(x) / y) + 0.5);
 }
 
-
-void test_seminar()
+void test_seminar_zum_Ersten()
 {
     std::cout << "Hallo Seminar" << std::endl;
 
@@ -64,6 +65,107 @@ void test_seminar()
     std::cout << "result:" << result << std::endl;
 
     double dresult = Calculator<double>::div(11.4, 23.4);
+}
+
+// ================================================================
+
+void test_seminar_01()
+{
+    std::vector<int> vec;
+    vec.reserve(100);
+
+    //vec.push_back(1);
+    //vec.push_back(2);
+    //vec.push_back(3);
+
+    // very classic :)
+    for (int i = 0; i < 120; ++i) {
+
+        vec.push_back(2 * i);
+
+        std::cout << "i: " << i << " - " << vec[i] <<
+            ", Size: " << vec.size()  <<
+            ", Capacity: " << vec.capacity() << std::endl;
+    }
+}
+
+void eineFunktion(int n)
+{
+    std::cout << "eineFunktion: " << n << std::endl;
+}
+
+int berechneWert ()
+{
+    static int value = 1;   // 'value' bleibt von Aufruf zu Aufruf
+
+    value = value * 2;
+
+    std::cout << "berechneWert ==>: " << value << std::endl;
+
+    return value;
+}
+
+void test_seminar()
+{
+    std::vector<int> vec;
+
+    vec.push_back(1);
+    vec.push_back(2);
+    vec.push_back(3);
+
+    // very iterator specific
+    std::vector<int>::iterator pos = vec.begin();
+    std::vector<int>::iterator ende = vec.end();
+    for (; pos != ende; ++pos) {
+        std::cout << *pos << std::endl;
+    }
+    std::cout << "Ende" << std::endl;
+
+    // STL algorithm specific
+    std::for_each(
+        vec.begin(),
+        vec.end(),
+        eineFunktion
+    );
+
+    // Wir wollen was machen :) Eine Anregung
+
+    std::vector<int> vec2;
+    vec2.resize(20);  // legt die Länge fest
+    // vec2.reserve(20); // legt die Größe des intern Speicherbereichs fest
+
+    // very classic :)
+    for (int i = 0; i < vec2.size(); ++i) {
+
+        vec2[i] = 1;
+    }
+
+    // vs.
+    // memset, memcpy, memcmp, 
+    // Intel , Mov ,  Rep prefix
+
+    std::fill(
+        vec2.begin(),
+        vec2.end(),
+        1
+    );
+
+    // Oder etwas anderes:
+    // Vektor mit Indices mal 2 vorbelegen:
+    // i  = 0, 1, 2, 3   =>   0, 2, 4, 6, ...
+
+    std::generate(
+        vec2.begin(),
+        vec2.end(),
+        berechneWert  
+    );
+
+    std::for_each(
+        vec2.begin(),
+        vec2.end(),
+        eineFunktion
+    );
+
 }
 
 // =====================================================================================

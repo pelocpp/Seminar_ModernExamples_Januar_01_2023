@@ -21,13 +21,18 @@ Templates (generische Programmierung)
   = Klassentemplates => wichtig
   = Spezialisierung => wichtig
 
+
 Typermittlung im Detail
   = auto (C++11) => wichtig
   = Automatischer Rückgabetyp (C++14) => wichtig
 
+STL:  Getting Started
+
+
 Lambdas (C++11)
   = Grundlagen => wichtig
   = Je nach Zeit: Generische Lambdas
+
 
 Standard Template Library
   = Iteratorkonzept => wichtig
@@ -112,9 +117,123 @@ Ginge runden auch ??
 
 Anforderung: Für T = int möchte ich bei div runden haben.
 
-// =====================================================================
-// End-of-File
-// =====================================================================
+====================================================
+
+STL:
+
+Klassenbibliothek   // Generisch
 
 
-Weiter geht es um 10:50 ....
+Container: Verwaltet Daten nach einer STRATEGIE
+==========
+
+Arrays
+Hash-Tabelle:      std::unordered_map:  WERT (Value), SCHLÜSSEL (Key)
+Baum
+Verkettete Liste
+
+std::vector<T>:
+
+Ist wie in C-Array, NUR flexibel Lang.
+
+Iterator:
+=========
+
+Was ist ein Iterator:  Eine POSITION in einem Container !
+
+Welchen Typ hat diese Position / Iterator?
+
+A) Ist pro STL Container anders ...
+
+B) Wird durch den STL Container festgelegt 
+
+C) WO: In der KLasse des STL Containers.
+
+D) Per DEFINITION hat jeder STL Container
+
+    ZWEI vordefinierte Positionen:   begin   und end
+
+Welche Klasse ist das jetzt:
+
+        Wollen wir nicht wissen :)
+
+Aber: Ein Iterator (Position) ist ein KONZEPT:
+
+eine Definition:
+
+a) begin(), end():  2 Standard-Positionen
+
+b) Was kann ich mit einer Position machen?
+
+operator++
+*operator
+operator != oder operator ==
+
+Es gibt unterschiedliche Leistungsstärken der Iteratoren:
+
+operator[]
+
+STL-Algorithmen:
+================
+
+Verwenden häufig
+
+== eine Funktion (C)
+== einen Funktor  // ist eine Instanz einer Klasse 
+== einen Lambda   // ist eine Instanz einer Klasse 
+
+
+Idee:
+
+    // STL algorithm specific
+    std::for_each(
+        vec.begin(),
+        vec.end(),
+        eineFunktion
+    );
+
+    std::fill(
+        vec2.begin(),
+        vec2.end(),
+        1
+    );
+
+    Programmieren in sog. "Building Blocks"
+
+
+    =============================================
+
+// general purpose operator
+
+bool operator() (int n1, int n2, int x, int n, int g) 
+
+    class Comparer
+    {
+    private:
+        mutable bool m_flag;
+
+    public:
+        Comparer() : m_flag{ true } {}
+        Comparer(bool flag) : m_flag{ flag } {}
+
+        bool operator() (int n1, int n2) const {
+            m_flag = true;
+            return (m_flag) ? n1 < n2 : n1 > n2;
+        }
+    };
+
+Eine Klasse, die den operator() implementiert 
+( Schnittstelle hängt vom Anwendungsfall ab  )
+nennt man Funktor:  Aufrufbare Klasse
+
+// ==================================================
+
+Aufgaben zu generischen Lambda Funktionen:
+    Aufgabe 1: Personensuche
+
+Aufgaben zu Lambda Funktionen:
+   Aufgabe 1: Einfache Realisierung einer Lambda-Funktion
+
+Aufgaben zu STL-Algorithmen:
+   Aufgabe 2: Fibonacci-Zahlen
+
