@@ -107,7 +107,8 @@ int main()
 {
     std::cout << "[Collection of Modern C++-Code Snippets - Copyright (C) 2019-2023 Peter Loos]" << std::endl;
 
-    // test_seminar();
+    test_seminar();
+    return 1;
 
     try
     {

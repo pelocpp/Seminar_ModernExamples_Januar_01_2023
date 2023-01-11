@@ -189,16 +189,16 @@ namespace ClassTemplatesBasics_02 {
         void test_06() {
 
             Printer normalPrinter(std::cout);
-            normalPrinter.print(100).print(" --> ").print(123.456).print("\n");
+            normalPrinter.print<int>(100).print(" --> ").print(123.456).print("\n");
 
             Printer errorPrinter(std::cerr);
-            errorPrinter.print(654.321).print(" <== ").print(100).print("\n");
+            errorPrinter.print<float>(654.321f).print(" <== ").print(100).print("\n");
         }
     }
 
     namespace ClassTemplatesBasics_Intro_07 {
 
-        template <typename T, size_t DIM>
+        template <typename T, size_t DIM >
         class FixedVector
         {
         private:
@@ -241,7 +241,9 @@ namespace ClassTemplatesBasics_02 {
             FixedVector<int, 10> vector_1;
             FixedVector<int, 20> vector_2;  // vector_1 und vector_2 have different types !!!
 
-            // vector_1 = vector_2;         // Error: binary '=': no operator found
+            // Code Bloat ..........
+
+            //vector_1 = vector_2;         // Error: binary '=': no operator found
         }
 
         void test_07() {
@@ -307,12 +309,21 @@ namespace ClassTemplatesBasics_02 {
             }
         };
 
+        template <int DIM>
+        using FixedIntVector2 = FixedVector<int, DIM>;
+        
         void test_09_01() {
+
+            typedef FixedVector<int, 10> FixedIntVector;
+            FixedIntVector vec0;
+
+            FixedIntVector2<50> vec00;
 
             FixedVector vec1;
             FixedVector<> vec2;
             FixedVector<double> vec3;
             FixedVector<bool, 10> vec4;
+
 
             vec1.print(std::cout);
             vec2.print(std::cout);

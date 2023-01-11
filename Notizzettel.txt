@@ -72,6 +72,49 @@ Kurz:
   = Neue Utility-Klassen (C++ 17, std::optional, std::variant, std::any, std::string_view)
     => unwichtig, es sei denn, es ist Zeit
 
+
+// =====================================================================
+
+Wo stehe ich in C++
+Was sind meine Erwartungen
+Was MUSS drin sein
+std::string_view
+Neue Klassen (std::optional, std::variant, ...)
+C++ 20 ...
+C++ 11 Features ...
+
+===> Hinführung zur STL
+
+// =====================================================================
+
+C++:
+
+OO: Objekt-Orientierte Pr.
+
+GP: Generische Programmierung
+
+
+Entwurf:   Bjarne Stroustrup
+
+Templates: Alexander Stepanov (Generische Programmierung)
+
+C with Classes (erste :) C++)
+
+
+==========================================================
+
+5 / 7  ==> 0  //  1 ?
+
+1.0 / 3.0 == 0.3333 
+
+Ginge runden auch ?? 
+
+
+Anforderung: Für T = int möchte ich bei div runden haben.
+
 // =====================================================================
 // End-of-File
 // =====================================================================
+
+
+Weiter geht es um 10:50 ....
