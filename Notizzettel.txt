@@ -230,6 +230,7 @@ nennt man Funktor:  Aufrufbare Klasse
 
 Aufgaben zu generischen Lambda Funktionen:
     Aufgabe 1: Personensuche
+    Könnte C++ 17 sein ...............
 
 Aufgaben zu Lambda Funktionen:
    Aufgabe 1: Einfache Realisierung einer Lambda-Funktion
