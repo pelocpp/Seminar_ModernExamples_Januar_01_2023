@@ -107,8 +107,8 @@ int main()
 {
     std::cout << "[Collection of Modern C++-Code Snippets - Copyright (C) 2019-2023 Peter Loos]" << std::endl;
 
-    test_seminar();
-    return 1;
+    //test_seminar();
+    //return 1;
 
     try
     {
@@ -135,7 +135,7 @@ int main()
         //main_decltype();
         //main_default_initialization();
         //main_erase_remove_idiom();
-        //main_exercises();
+        main_exercises();
         //main_expression_templates();
         //main_generate();
         //main_generic_lambdas();
@@ -164,7 +164,7 @@ int main()
         //main_raii();
         //main_raii_02();
         //main_random();
-        main_range_based_for_loop();
+        //main_range_based_for_loop();
         //main_reference_wrapper();
         //main_regular_expressions();
         //main_rvalue_lvalue();

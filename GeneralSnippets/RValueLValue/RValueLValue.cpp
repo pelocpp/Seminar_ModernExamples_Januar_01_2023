@@ -32,6 +32,11 @@ namespace LValueRValue {
 
     void helper(std::string&& message) {
 
+        // Perfect Forwarding:
+        // Kommt ein RValue ===> sayHello (&&)
+        // Kommt ein LValue ===> sayHello (&)
+        // std::forward
+
         sayHello(std::move(message));  // sayHello: &   <=====
                                        // sayHello: &&  <-----
                                                       // sayHello(std::move(message));    // casting an lvalue to an rvalue
