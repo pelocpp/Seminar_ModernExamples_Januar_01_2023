@@ -39,7 +39,7 @@ Standard Template Library
 
 
 Algorithmen:
-  = std::for_each, std::generate, std::transform, std::back_inserter
+  = std::for_each, std::generate
 
 
 Übungen:
@@ -48,12 +48,12 @@ Algorithmen:
   = Klassentemplate (Calculator)
   = Lambda Funktionen, Aufgabe 1 (Even)
   = STL-Algorithmen, Aufgabe 2 (Fibonacci-Zahlen)
-
+  = Generische Lambdas: Personensuche
 
 Donnerstag:
 -----------
 
-Metaprogramming, Type Traits: Je nach Zeit
+Besprechung der Übungen vom Mittwoch Abend.
 
 
 Neue Techniken bei C++
@@ -63,14 +63,17 @@ Neue Techniken bei C++
 Erweiterungen
   = Standard-Bibliothek (Überblick):
        Container-Klassen, Iteratoren, Algorithmen, Funktoren => wichtig
+       std::transform, std::back_inserter
   = Smart Pointer (Unique, Shared, Weak Pointer) => wichtig
+
+Metaprogramming, Type Traits: Je nach Zeit
 
 
 Übungen:
 ~~~~~~~~
   = Smart Pointer
   = Move-Semantik
-  = Generische Lambdas: Personensuche
+
 
 Kurz:
   = Variadische Templates (C++11) => eventuell
@@ -98,7 +101,6 @@ C++:
 OO: Objekt-Orientierte Pr.
 
 GP: Generische Programmierung
-
 
 Entwurf:   Bjarne Stroustrup
 
@@ -240,3 +242,222 @@ Aufgaben zu STL-Algorithmen:
    Aufgabe 2: Fibonacci-Zahlen
 
 // ==================================================
+
+template <typename T, typename U>
+std::pair<T, U>
+
+Ist eine einfache Helper-Klasse,
+um 2 Werte abzuspeicher .
+
+// ==================================================
+
+
+Warum stehen da überall geschweifte Klammern ????
+
+A) Neue Form der Syntax: Uniform Init.
+
+Idee:            Class X {}
+
+                 X x(1, 2, 3);
+                 x.foo (4, 5, 6);
+
+                 NEU:
+
+                 X x{ 1, 2, 3 };
+                 x.foo (4, 5, 6);
+
+                 Geht auch:
+
+                 X x{};
+
+
+B) Mit Konsequenzen !!!!
+
+// ===========================================
+
+:== ... 460:      Anonymes Objekt // temp. Obj. // Wurde freigegeben 
+:== ... 0E0
+
+:== ... C20:
+
+:== ... 310:
+
+
+// ===========================================
+
+
+Java, C#, JavaScript:
+
+Referenz-Semantik    (NUR: new)
+
+C++:
+
+Referenz-Semantik    (new)
+
+Werte-Semantik    (Objekte am Stack)
+
+// ==================================================
+
+
+Smart - Pointer:
+----------------
+
+Worum geht es ???
+
+int* ip = new int [100];
+
+delete[] ip;
+
+Falsch: delete ip;   KEINE MELDUNG DES ÜBERSETZERS !   UB  Undefined Behaviour
+
+
+
+int* ip2 = new int;
+
+delete ip2;
+
+Was ist, wenn der delete FEHLT ?????????   Lücke
+
+------------------------
+
+int* ip = new int [100];
+
+....
+
+func (ip);    // Frage:   In func:   delete[] ip;
+
+
+Moderne Sprachen:   Java, C#:   new  , KEIN delete ABER: Garbage Collector
+
+Wie nennt man das Suchen der deletes:  Death March
+
+https://www.medimops.de/edward-yourdon-death-march-yourdon-press-computing-series-gebundene-ausgabe-M00137483104.htm
+
+=======================================================
+
+Fehlende delete:
+
+IDEE: 
+
+a) C++ (OO): Es gibt Klassen
+b) Es gibt Destruktoren
+c) Ansatz:   Man legt einen Zeiger (int*) in einer Hüllenklasse / Hüllenobjekt ab
+
+   ===> Objekte haben Destruktoren:
+        Diese werden DETERMINISTISCH aufgerufen
+   ===> Ist der delete im Destruktor platziert:
+        Dann wird der delete DETERMINISTISCH aufgerufen
+
+d) Forderung: Hüllenobjekte sollten am Stack liegen.
+
+Historisch:   std::auto_ptr
+
+Überarbeitung:
+
+Verfeinerung des grundlegenden Ansatzes:
+
+std::unique_ptr:
+
+   Ein unique_ptr kann zu EINEM Zeitpunkt nur EINEN BESITZER haben.
+   (keine Kopie möglich zb)
+   Der BESITZER kann wechseln
+
+std::shared_ptr (std::weak_ptr)
+
+   Ein shared_ptr kann zu EINEM Zeitpunkt MEHRERE BESITZER haben.
+   (Kopie möglich )
+   Frage:  Im Destruktor eines shared_ptr kann der delete nicht grundsätzlich
+   aufgerufen werden.
+
+   ===> Wir zählen die Besitzer // Referenz-Counter
+   ===> Beobachtung:  Ähnlichkeiten mit einem Garbage Collector: 
+
+   Zähler :  0 => 1 => 2  => 3  => 2  => 1  => 0:   JETZT: delete
+
+// ===========================================
+
+   Visual C++ 17.4 :
+   
+   Copy Elision: to elide 
+
+etw. ignorieren  | ignorierte, ignoriert |
+etw. übergehen  | überging, übergangen |
+etw. auslassen  | ließ aus, ausgelassen |
+
+// ===========================================
+
+Welches ist / könnte der Vorzugs-Smart-Pointer sein ???
+
+std::unique_ptr oder std::shared_ptr 
+
+"std::unique_ptr ist wie Raw Zeiger"   // ABER: delete ist garantiert
+
+std::shared_ptr kann langsamer sein:
+
+Er ist multi-threading sicher
+
+Meinung des Referenten: Go for "std::unique_ptr"
+
+Noch ein Aber: 
+
+Es kann sein,
+dass ein std::shared_ptr den Speicher nicht frei gibt :-(((
+
+Es gibt Situationen, in denen das Referenz-Zählen nicht funktioniert.
+
+Lösung: 
+
+std::shared_ptr
+std::weak_ptr
+
+A) Handling
+B) Beispiel eines Zyklus
+
+Warum geht es nicht ????
+
+std::shared_ptr<ParentNode> parent{ new ParentNode {} };
+std::shared_ptr<RightNode> rightNode{ new RightNode { parent } };
+std::shared_ptr<LeftNode> leftNode{ new LeftNode { parent } };
+
+parent->setRightNode(rightNode);
+parent->setLeftNode(leftNode);
+
+}   // ENDE Des Scopes
+
+
+Was ist die Moral von der Geschichte:
+
+// ======================================================
+
+   ......   vec.begin() ..........
+
+   ...... std::begin(vec) ..........
+
+Name Lookup zu tun ..........
+
+https://stackoverflow.com/questions/7593086/why-use-non-member-begin-and-end-functions-in-c11
+
+            int m;
+            m = n;
+00007FF73BF091C9  mov         eax,dword ptr [rbp+0C4h]  
+00007FF73BF091CF  mov         dword ptr [rbp+0E4h],eax 
+
+
+            int m;
+            m = n;
+00007FF73BF09270  mov         rax,qword ptr [rbp+168h]  
+00007FF73BF09277  mov         eax,dword ptr [rax]  
+00007FF73BF09279  mov         dword ptr [rbp+184h],eax
+
+
+// ======================================================
+
+Übungen:
+~~~~~~~~
+  = Smart Pointer  : Alle drei 
+  = Move-Semantik: AUfgabe 1
+
+
+
+
+

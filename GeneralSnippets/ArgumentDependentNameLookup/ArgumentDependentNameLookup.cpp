@@ -17,7 +17,7 @@ namespace ArgumentDependentNameLookup
     {
         MyNamespace::MyClass obj;
 
-        // doSomething();    // Error: 'doSomething': identifier not found
+       // doSomething();    // Error: 'doSomething': identifier not found
 
         MyNamespace::doSomething();    // works
 

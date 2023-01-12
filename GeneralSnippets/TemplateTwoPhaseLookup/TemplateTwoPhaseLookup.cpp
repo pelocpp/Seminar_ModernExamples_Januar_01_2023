@@ -22,6 +22,9 @@ namespace Templates_TwoPhaseNameLookup
         }
     };
 
+
+
+
     // Template Code Example:
     template <typename T>
     class BaseEx {
@@ -32,12 +35,13 @@ namespace Templates_TwoPhaseNameLookup
     };
 
     template <typename T>
+    
     class DerivedEx : public BaseEx<T> {
     public:
-        // using BaseEx<T>::doSomething;
+        using BaseEx<T>::doSomething;
         void callBase() {
-            // doSomething();      // <=== remove comment: 
-            this->doSomething();
+            doSomething();      // <=== remove comment: 
+            //this->doSomething();
             BaseEx<T>::doSomething();
         }
     };

@@ -60,7 +60,16 @@ namespace Exercises_Algorithms {
 
     namespace Exercise_02 {
 
+        class X
+        {
+        public:
+            // X() : x{ }, y{ } {}
+            int x, y;
+        };
+
         void testExercise_02() {
+
+            X x{};  // Aggregat Initialisierung
 
             std::vector<int> numbers(20);
 
@@ -72,16 +81,17 @@ namespace Exercises_Algorithms {
             };
 
             // without structured binding
-            auto fibo2 = [p = std::pair{ 0, 1 }]() mutable {
+            auto fibo2 = [p = std::pair<int, int>{ 0, 1 }] () mutable {
                 int n1 = p.first;
                 int n2 = p.second;
-                p = { n2, n1 + n2 };
+                p = std::pair<int, int>{ n2, n1 + n2 };
                 return n1;
             };
 
-            // using a 'state' variable in the scope / "closure"
+            // using a 'state' variable in the Scope / "Closure"
             auto pLocal = std::pair{ 0, 1 };
-            auto fibo3 = [&] {
+            
+            auto fibo3 = [&pLocal] {
                 int n1 = pLocal.first;
                 int n2 = pLocal.second;
                 pLocal = { n2, n1 + n2 };

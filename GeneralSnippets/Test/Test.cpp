@@ -5,6 +5,55 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <type_traits>
+
+// A) my_remove_reference<int> ==> Obere ==> type = int
+// B) my_remove_reference<int&> ==> Untere ==> type = int
+
+// primary template
+template <typename T>
+struct my_remove_reference {
+    using type = T;
+};
+
+// partielle Template Spezialisierung
+template <typename T>
+struct my_remove_reference<T&> {
+    using type = T;
+};
+
+// Lambdas & Templates
+auto tueWas = [] (const auto& x) {
+
+    std::vector<int>::iterator pos;
+
+    using T = decltype(x);
+
+    using TypeWithoutReference = my_remove_reference<T>::type;
+
+    using TypeWithoutConstAndReference 
+        = std::remove_const<TypeWithoutReference>::type;
+
+    if (std::is_same<int, TypeWithoutConstAndReference>::value)
+    {
+        std::cout << "bin ein int: x=" << x << std::endl;
+    }
+    else if (std::is_same<double, decltype(x)>::value)
+    {
+        std::cout << "bin ein double: x=" << x << std::endl;
+    }
+    else
+    {
+        std::cout << "etwas stimmt nicht" << std::endl;
+    }
+};
+
+void test_seminar()
+{
+    tueWas(123);
+    tueWas(123.456);
+}
+
 
 //class Calculator
 //{
@@ -105,7 +154,7 @@ int berechneWert ()
     return value;
 }
 
-void test_seminar()
+void test_seminar_zum_Dritten()
 {
     std::vector<int> vec;
 

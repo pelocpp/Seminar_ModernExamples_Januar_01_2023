@@ -14,7 +14,7 @@
 
 namespace RangeBasedForLoop {
 
-    // global function
+    // global C function
     void processElement(int n)
     {
         std::cout << n << " ";
@@ -37,11 +37,14 @@ namespace RangeBasedForLoop {
         // =========================================================================
         // "Classic style" examples
 
-        // a) Very, very old style ... I wouldn't do this ... C-stylistic
-        for (size_t i = 0; i != vec.size(); ++i) {
+        // a) Very, very old style ... C-stylistic
+        for (size_t i{}; i != vec.size(); ++i) {
+            // break;
             std::cout << vec[i] << " ";
         }
         std::cout << std::endl;
+
+
 
         // b) Looks like C++, very classic style
         std::for_each(
@@ -79,29 +82,53 @@ namespace RangeBasedForLoop {
 
         // =========================================================================
         // Range-based 'for' Loop examples
+        // For_each
 
         // f) Using Range-based 'for' Loop: Looks like C++, very modern style
-        for (int n : vec) {
+        for ( int /* OHNE& */ n : vec) {
+            int m;
+            m = n;
+
+            n = 123;
+
             std::cout << n << " ";
-            if (n == 2)  // break is possible
-                break;
+            //if (n == 2)  // break is possible
+            //    break;
         }
         std::cout << std::endl;
 
         // g) Same as f), using 'const int&'
-        for (const int& n : vec) {
+        for ( int& n : vec) {
+            int m;
+            m = n;
+
+            n = 123;
+
+            std::cout << n << " ";
+        }
+        std::cout << std::endl;
+
+        // gg) Same as f), using 'const int&'
+        for (int& n : vec) {
+            int m;
+            m = n;
+
+            n = 123;
+
             std::cout << n << " ";
         }
         std::cout << std::endl;
 
         // h) Same as f): Using 'auto' keyword to cause type inference to be used
         for (auto n : vec) {
+            // n ist ein KOPIE
             std::cout << n << " ";
         }
         std::cout << std::endl;
 
         // i) Same as g), using 'const auto&': type inference by reference
         for (const auto& n : vec) {
+            // n ist ein REFERENT DER ELEMENTS AUS DEM VEKTOR
             std::cout << n << " ";
         }
         std::cout << std::endl;
@@ -112,7 +139,7 @@ namespace RangeBasedForLoop {
 
         while (begin != end) {
 
-            int n = *begin;
+            const int n = *begin;
             std::cout << n << " ";
             ++begin;
         }
@@ -125,6 +152,9 @@ namespace RangeBasedForLoop {
         while (begin2 != end2) {
 
             int n = *begin2;
+
+            *begin2 = 345;
+
             std::cout << n << " ";
             ++begin2;
         }
@@ -132,10 +162,13 @@ namespace RangeBasedForLoop {
 
         // l) Range-based 'for' loop with initializer,
         // we can now use the index variable inside the for statement
+        // C++ 20
+        
         for (int index{}; int n : vec) {
             std::cout << index << ": " << n << " " << std::endl;
             ++index;
         }
+       // ++index;
     }
 }
 

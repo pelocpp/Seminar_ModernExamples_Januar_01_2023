@@ -20,8 +20,16 @@ namespace Exercises_Lambdas {
             }
         }
 
-        struct Even {
-            void operator()(int val) const {
+        // Aufrufbares Objekt // Callable
+        struct Even
+        {
+            void operator() (int val) const {
+                if ((val % 2) == 0) {
+                    std::cout << val << " is even." << std::endl;
+                }
+            }
+
+            void operator() (int val, int val2) const {
                 if ((val % 2) == 0) {
                     std::cout << val << " is even." << std::endl;
                 }
@@ -32,24 +40,35 @@ namespace Exercises_Lambdas {
 
             // testing functor
             Even functor;
-            functor (14);
+            functor (14, 15);
 
             // testing lambda
-            auto lambdaEven = [](int val) {
+            auto lambdaEven = [] (int val) {
                 if (!(val % 2)) {
                     std::cout << val << " is even." << std::endl;
                 }
             };
             lambdaEven(16);
+
+            // self invoking lambda
+            auto result = [](int val) {
+                if (!(val % 2)) {
+                    std::cout << val << " is even." << std::endl; 
+                }
+                return true;
+            } (123);
         }
 
         void testExercise_01b() {
             std::vector<int> values(20);
 
+            // 1, 2, 3, 4, ...
             std::generate(
                 std::begin(values),
                 std::end(values),
-                [count = 1]() mutable { return count++; }
+                [count = 1]() mutable { 
+                    return count++; 
+                }
             );
 
             // function
